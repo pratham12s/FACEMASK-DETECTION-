@@ -13,10 +13,10 @@ gray = cv2.cvtColor(img, cv2.IMREAD_GRAYSCALE)
 faces = face_model.detectMultiScale(gray,scaleFactor=1.1, minNeighbors=4)
 for i in range(len(faces)):
     (x,y,w,h) = faces[i]
-    crop = img[y:y+h,x:x+w]
-    crop = cv2.resize(crop,(128,128))
-    crop = np.reshape(crop,[1,128,128,3])/255.0
-    mask_result = model.predict(crop)
+    face_crop = img[y:y+h,x:x+w]
+    face_crop = cv2.resize(face_crop,(128,128))
+    face_crop = np.reshape(face_crop,[1,128,128,3])/255.0
+    mask_result = model.predict(face_crop)
     if mask_result.argmax()==1:
         cv2.rectangle(img,(x,y),(x+w,y+h),(0,0,255),1)
         cv2.putText(img,'NO MASK',(x, y-10),cv2.FONT_HERSHEY_SIMPLEX,0.5,(0,0,255),1)

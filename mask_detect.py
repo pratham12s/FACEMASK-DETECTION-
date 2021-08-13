@@ -1,17 +1,16 @@
+# 0:'MASK',1:'NO MASK'
 from tensorflow.keras.applications.vgg19 import preprocess_input
 from tensorflow.keras.preprocessing.image import img_to_array
 from tensorflow.keras.models import load_model
 import numpy as np
 import cv2
 import os
-import argparse
 
 face_model = cv2.CascadeClassifier(r'C:\Users\Pratham Sahay\Documents\opencv\haarcascade_frontalface_default.xml')
 model = load_model(r'C:\Users\Pratham Sahay\Documents\Face Mask Detection\model\maskdet.h5')
 img = cv2.imread(r'C:\Users\Pratham Sahay\Documents\Face Mask Detection\fm1.jpg')
 gray = cv2.cvtColor(img, cv2.IMREAD_GRAYSCALE)
 faces = face_model.detectMultiScale(gray,scaleFactor=1.1, minNeighbors=4)
-mask_label = {0:'MASK',1:'NO MASK'}
 for i in range(len(faces)):
     (x,y,w,h) = faces[i]
     crop = img[y:y+h,x:x+w]
